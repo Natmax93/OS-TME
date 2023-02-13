@@ -118,23 +118,25 @@ Programme:
 
     void lance_commande_v2(char *commande){
 
-        struct tms temps1, temps2;  // Structures pour la fonction times
-        int res;                
+        struct tms temps1, temps2;              // Structures pour la fonction times
+        int res;
+        clock_t t1, t2;                         // Pour le temps total
+        double ticks = sysconf(_SC_CLK_TCK);    // Le nombre de ticks horloges par secondes           
 
-        times(&temps1);
+        t1 = times(&temps1);
         res = system((const char *)commande);
-        times(&temps2);
+        t2 = times(&temps2);
 
         if (res == -1){
             fprintf(stderr, "Erreur: la commande '%s' n'a pas pu être exécutée correctement\n", commande);
         }
         else{
             printf("Statistiques de \"%s\" :\n", commande);
-            printf("Temps total : %ld\n", sysconf(_SC_CLK_TCK));
-            printf("Temps utilisateur : %ld\n", temps2.tms_utime);
-            printf("Temps système : %ld\n", temps2.tms_stime);
-            printf("Temps utilisateur fils : %ld\n", temps2.tms_cutime);
-            printf("Temps système fils : %ld\n", temps2.tms_cstime);
+            printf("Temps total : %f\n", (t2 - t1) / ticks);
+            printf("Temps utilisateur : %f\n", (temps2.tms_utime - temps1.tms_utime) / ticks);
+            printf("Temps système : %f\n", (temps2.tms_stime - temps1.tms_stime) / ticks);
+            printf("Temps utilisateur fils : %f\n", (temps2.tms_cutime - temps1.tms_cutime) / ticks);
+            printf("Temps système fils : %f\n", (temps2.tms_cstime - temps1.tms_cstime) / ticks);
         }
     }
 
@@ -151,23 +153,23 @@ Résultat de la commande:
 > -rw-rw-r-- 1 natmax93 natmax93  1720 févr.  4 15:38 mytimes.c<br>
 > -rw-rw-r-- 1 natmax93 natmax93  2699 févr.  4 15:25 README.md<br>
 > Statistiques de "ls -l" :<br>
-> Temps total : 100<br>
-> Temps utilisateur : 0<br>
-> Temps système : 0<br>
-> Temps utilisateur fils : 0<br>
-> Temps système fils : 0<br>
+> Temps total : 0.010000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 0.000000<br>
+> Temps système fils : 0.000000<br>
 > Statistiques de "./loopcpu" :<br>
-> Temps total : 100<br>
-> Temps utilisateur : 0<br>
-> Temps système : 0<br>
-> Temps utilisateur fils : 147<br>
-> Temps système fils : 0<br>
+> Temps total : 1.420000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 1.420000<br>
+> Temps système fils : 0.000000<br>
 > Statistiques de "./loopsys" :<br>
-> Temps total : 100<br>
-> Temps utilisateur : 0<br>
-> Temps système : 0<br>
-> Temps utilisateur fils : 474<br>
-> Temps système fils : 184<br>
+> Temps total : 4.840000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.960000<br>
+> Temps système fils : 1.880000<br>
 
 ## 5 - Changement de priorité
 
@@ -182,3 +184,67 @@ A l'issue de la commande:
 > nice -19 ps -l
 
 La priorité de la commande *ps* est devenue 99.
+
+### Question 5.3
+
+A l'issue de la commande:
+
+> ./mytimes "./loopcpu" & ./mytimes "nice -19 ./loopcpu" & ./mytimes "./loopcpu" & ./mytimes "./loopcpu" & ./mytimes "./loopcpu" & ./mytimes "./loopcpu" & ./mytimes "./loopcpu" & ./mytimes "./loopcpu" & ./mytimes "./loopcpu" &<br>
+
+On obtient le résultat suivant:
+
+> Temps total : 2.060000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.050000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.060000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.050000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.060000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.050000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.080000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.060000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.090000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.060000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.130000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.050000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.170000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.050000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "./loopcpu" :<br>
+> Temps total : 2.230000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 2.010000<br>
+> Temps système fils : 0.000000<br>
+> Statistiques de "nice -19 ./loopcpu" :<br>
+> Temps total : 3.250000<br>
+> Temps utilisateur : 0.000000<br>
+> Temps système : 0.000000<br>
+> Temps utilisateur fils : 1.580000<br>
+> Temps système fils : 0.000000<br>
+
+On observe donc bien que le processus auquel on a baissé la priorité prend le plus de temps à s'exécuter et se termine en dernier.

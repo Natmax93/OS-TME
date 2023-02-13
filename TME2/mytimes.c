@@ -26,23 +26,25 @@ void lance_commande(char *commande){
 
 void lance_commande_v2(char *commande){
 
-    struct tms temps1, temps2;  // Structures pour la fonction times
-    int res;                
+    struct tms temps1, temps2;              // Structures pour la fonction times
+    int res;
+    clock_t t1, t2;                         // Pour le temps total
+    double ticks = sysconf(_SC_CLK_TCK);    // Le nombre de ticks horloges par secondes           
 
-    times(&temps1);
+    t1 = times(&temps1);
     res = system((const char *)commande);
-    times(&temps2);
+    t2 = times(&temps2);
 
     if (res == -1){
         fprintf(stderr, "Erreur: la commande '%s' n'a pas pu être exécutée correctement\n", commande);
     }
     else{
         printf("Statistiques de \"%s\" :\n", commande);
-        printf("Temps total : %ld\n", sysconf(_SC_CLK_TCK));
-        printf("Temps utilisateur : %ld\n", temps2.tms_utime);
-        printf("Temps système : %ld\n", temps2.tms_stime);
-        printf("Temps utilisateur fils : %ld\n", temps2.tms_cutime);
-        printf("Temps système fils : %ld\n", temps2.tms_cstime);
+        printf("Temps total : %f\n", (t2 - t1) / ticks);
+        printf("Temps utilisateur : %f\n", (temps2.tms_utime - temps1.tms_utime) / ticks);
+        printf("Temps système : %f\n", (temps2.tms_stime - temps1.tms_stime) / ticks);
+        printf("Temps utilisateur fils : %f\n", (temps2.tms_cutime - temps1.tms_cutime) / ticks);
+        printf("Temps système fils : %f\n", (temps2.tms_cstime - temps1.tms_cstime) / ticks);
     }
 }
 
