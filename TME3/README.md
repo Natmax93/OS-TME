@@ -1262,3 +1262,34 @@ On observe que le temps d'attente moyen est légèrement meilleur pour l'algorit
 L'algorithme peut provoquer de la famine dans le cas où les tâches courtes sont créées en continue et que les tâches longues ne peuvent donc jamais être élues.
 
 Pour résoudre le problème, on pourrait remettre le temps d'utilisation CPU des tâches qui ont duré plus longtemps qu'un quantum (ou plus) à zéro pour les remettre au même niveau que les nouvelles tâches et éviter la famine.
+
+Par exemple:
+
+    // Approximation SJF privilégiant les tâches courtes en évitant
+    // la famine
+    int ApproxSJF_v2(void) {
+
+    int p;
+    double temps_cons_min;
+
+    printf("ApproxSJF Election !\n");
+
+    // On va chercher le processus qui a consommé le moins de temps
+    // CPU jusqu'à maintenant
+
+    p = -1;
+    temps_cons_min = LONGTIME; // initialisation à la durée la plus longue
+    for (int i = 0; i<MAXPROC; i++) {
+        // Cas où une tâche longue a eu le CPU pendant un quantum
+        // On abaisse son temps d'utilisation CPU
+        if (Tproc[i].ncpu > QX) {
+        Tproc[i].ncpu = 0;
+        }
+
+        if (Tproc[i].flag == RUN && Tproc[i].ncpu < temps_cons_min) {
+        p = i;
+        temps_cons_min = Tproc[i].ncpu;
+        }
+    }
+    return p;
+    }
