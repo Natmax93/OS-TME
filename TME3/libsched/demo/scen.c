@@ -89,7 +89,7 @@ int SJFElect(void) {
 int ApproxSJF(void) {
 
   int p;
-  double temps_cons_min, nvTps;
+  double temps_cons_min;
 
   printf("ApproxSJF Election !\n");
 
@@ -99,14 +99,11 @@ int ApproxSJF(void) {
   p = -1;
   temps_cons_min = LONGTIME; // initialisation à la durée la plus longue
   for (int i = 0; i<MAXPROC; i++) {
-    nvTps = (double)((int)(Tproc[i].ncpu*1000000) % 50000) / 1000000;
-    if (Tproc[i].flag == RUN && nvTps < temps_cons_min) {
+    if (Tproc[i].flag == RUN && Tproc[i].ncpu < temps_cons_min) {
       p = i;
-      temps_cons_min = nvTps;
+      temps_cons_min = Tproc[i].ncpu;
     }
   }
-  printf("temps_cons_min = %lf\n", temps_cons_min);
-  printf("nvTps = %lf\n", nvTps);
   return p;
 }
 
