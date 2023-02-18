@@ -81,29 +81,27 @@ int SJFElect(void) {
       duration_min = Tproc[i].duration;
     }
   }
+
   return p;
 }
 
-// Approximation SJF
+// Approximation SJF privilégiant les tâches courtes
 int ApproxSJF(void) {
+
   int p;
-
-  /*int i;
-
-  printf("RANDOM Election !\n");
-
-  do {
-    i = (int) ((float)MAXPROC*rand()/(RAND_MAX+1.0));
-  } while (Tproc[i].flag != RUN);
-
-  printf("Tproc[%d].ncpu = %f\n", i, Tproc[i].ncpu);
-
-  return i;*/
+  double temps_cons_min;
 
   // On va chercher le processus qui a consommé le moins de temps
   // CPU jusqu'à maintenant
 
-  /* A compléter */
+  p = -1;
+  temps_cons_min = LONGTIME; // initialisation à la durée la plus longue
+  for (int i = 0; i<MAXPROC; i++) {
+    if (Tproc[i].flag == RUN && Tproc[i].ncpu < temps_cons_min) {
+      p = i;
+      temps_cons_min = Tproc[i].ncpu;
+    }
+  }
 
   return p;
 }

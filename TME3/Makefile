@@ -1,24 +1,15 @@
-# Mettre dans SCHEDPATH le repertoire ou se trouve libsched.a
-# et sched.h
-SCHEDPATH = /Infos/lmd/2022/licence/ue/LU3IN010-2023fev/libsched/src
+CFLAGS = -Wall  -fPIC -I. -g
+all: libsched.a 
+	
+libsched.a: sched.o nlist2.o
+	ar r libsched.a sched.o nlist2.o
+	ranlib libsched.a
+	
+sched.o: sched.c sched.h
+	gcc $(CFLAGS) -c sched.c
 
-CFLAGS = -Wall -I$(SCHEDPATH) -g
-CC = /usr/bin/gcc
-
-all: main scen 
-
-main: main.o 
-	$(CC) $(CFLAGS) -o main main.o -L$(SCHEDPATH) -lsched -L$(SCHEDPATH) -lelf 
-
-
-scen: scen.o 
-	$(CC) $(CFLAGS) -o scen scen.o -L$(SCHEDPATH) -lsched -L$(SCHEDPATH) -lelf 
-
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c
-
-scen.o: scen.c
-	$(CC) $(CFLAGS) -c scen.c
-
+nlist2.o: nlist2.c
+	gcc $(CFLAGS) -c nlist2.c 
+	
 clean: 
-	rm -f main main.o scen scen.o
+	rm -f libsched.a sched.o nlist2.o
