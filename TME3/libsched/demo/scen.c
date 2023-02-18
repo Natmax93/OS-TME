@@ -5,6 +5,7 @@
 #include <sched.h>
 
 #define LONGTIME 8E8
+#define QX 1            // Le quantum en secondes
 void ProcLong(int *);
 void ProcCourt(int *);
 
@@ -107,6 +108,34 @@ int ApproxSJF(void) {
   return p;
 }
 
+// Approximation SJF privilégiant les tâches courtes en évitant
+// la famine
+int ApproxSJF_v2(void) {
+
+  int p;
+  double temps_cons_min;
+
+  printf("ApproxSJF Election !\n");
+
+  // On va chercher le processus qui a consommé le moins de temps
+  // CPU jusqu'à maintenant
+
+  p = -1;
+  temps_cons_min = LONGTIME; // initialisation à la durée la plus longue
+  for (int i = 0; i<MAXPROC; i++) {
+    // Cas où une tâche longue a eu le CPU pendant un quantum
+    // On abaisse son temps d'utilisation CPU
+    if (Tproc[i].ncpu > QX) {
+      Tproc[i].ncpu = 0;
+    }
+
+    if (Tproc[i].flag == RUN && Tproc[i].ncpu < temps_cons_min) {
+      p = i;
+      temps_cons_min = Tproc[i].ncpu;
+    }
+  }
+  return p;
+}
 
 
 int main (int argc, char *argv[]) {
@@ -123,9 +152,9 @@ int main (int argc, char *argv[]) {
 
 
   // Definir une nouvelle primitive d'election avec un quantum de 1 seconde
-  SchedParam(NEW, 1, RandomElect);
+  //SchedParam(NEW, 1, RandomElect);
   //SchedParam(NEW, 0.5, SJFElect);
-  //SchedParam(NEW, 1, ApproxSJF);
+  SchedParam(NEW, QX, ApproxSJF);
 
   // Lancer l'ordonnanceur en mode non "verbeux"
   sched(0);     

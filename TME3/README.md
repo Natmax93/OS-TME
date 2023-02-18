@@ -595,7 +595,7 @@ On observe bien que dès qu'une tâche courte est créée, elle réquisitionne l
 
 ### Question 3.2
 
-Résultat avec un quantum d'une seule seconde:
+Résultat avec un quantum d'une seule seconde pour __ApproxSJF__:
 
     ApproxSJF Election !
     Proc. Long 0 - 0
@@ -925,4 +925,340 @@ Résultat avec un quantum d'une seule seconde:
     Average:		1.690s		0.405s		1.285s
     --------------------------------------------------------------------
 
-On 
+Et pour __RandomElect__:
+
+    RANDOM Election !
+    Proc. Long 0 - 0
+    Proc. Long 0 - 8000000
+    Proc. Long 0 - 16000000
+    Proc. Long 0 - 24000000
+    Proc. Long 0 - 32000000
+    Proc. Long 0 - 40000000
+    Proc. Long 0 - 48000000
+    Proc. Long 0 - 56000000
+    Proc. Long 0 - 64000000
+    Proc. Long 0 - 72000000
+    Proc. Long 0 - 80000000
+    Proc. Long 0 - 88000000
+    Proc. Long 0 - 96000000
+    Proc. Long 0 - 104000000
+    Proc. Long 0 - 112000000
+    Proc. Long 0 - 120000000
+    Proc. Long 0 - 128000000
+    Proc. Long 0 - 136000000
+    Proc. Long 0 - 144000000
+    Proc. Long 0 - 152000000
+    Proc. Long 0 - 160000000
+    Proc. Long 0 - 168000000
+    Proc. Long 0 - 176000000
+    Proc. Long 0 - 184000000
+    Proc. Long 0 - 192000000
+    Proc. Long 0 - 200000000
+    Proc. Long 0 - 208000000
+    Proc. Long 0 - 216000000
+    Proc. Long 0 - 224000000
+    Proc. Long 0 - 232000000
+    Proc. Long 0 - 240000000
+    Proc. Long 0 - 248000000
+    Proc. Long 0 - 256000000
+    Proc. Long 0 - 264000000
+    Proc. Long 0 - 272000000
+    Proc. Long 0 - 280000000
+    Proc. Long 0 - 288000000
+    Proc. Long 0 - 296000000
+    Proc. Long 0 - 304000000
+    Proc. Long 0 - 312000000
+    Proc. Long 0 - 320000000
+    Proc. Long 0 - 328000000
+    Proc. Long 0 - 336000000
+    Proc. Long 0 - 344000000
+    Proc. Long 0 - 352000000
+    Proc. Long 0 - 360000000
+    Proc. Long 0 - 368000000
+    Proc. Long 0 - 376000000
+    Proc. Long 0 - 384000000
+    Proc. Long 0 - 392000000
+    Proc. Long 0 - 400000000
+    Proc. Long 0 - 408000000
+    Proc. Long 0 - 416000000
+    Proc. Long 0 - 424000000
+    Proc. Long 0 - 432000000
+    Proc. Long 0 - 440000000
+    Proc. Long 0 - 448000000
+    Proc. Long 0 - 456000000
+    RANDOM Election !
+    Proc. Court 2 - 0
+    Proc. Court 2 - 8000000
+    Proc. Court 2 - 16000000
+    Proc. Court 2 - 24000000
+    Proc. Court 2 - 32000000
+    Proc. Court 2 - 40000000
+    Proc. Court 2 - 48000000
+    Proc. Court 2 - 56000000
+    Proc. Court 2 - 64000000
+    Proc. Court 2 - 72000000
+    ############ FIN COURT 2
+
+    RANDOM Election !
+    Proc. Court 0 - 0
+    Proc. Court 0 - 8000000
+    Proc. Court 0 - 16000000
+    Proc. Court 0 - 24000000
+    Proc. Court 0 - 32000000
+    Proc. Court 0 - 40000000
+    Proc. Court 0 - 48000000
+    Proc. Court 0 - 56000000
+    Proc. Court 0 - 64000000
+    Proc. Court 0 - 72000000
+    ############ FIN COURT 0
+
+    RANDOM Election !
+    Proc. Court 1 - 0
+    Proc. Court 1 - 8000000
+    Proc. Court 1 - 16000000
+    Proc. Court 1 - 24000000
+    Proc. Court 1 - 32000000
+    Proc. Court 1 - 40000000
+    Proc. Court 1 - 48000000
+    Proc. Court 1 - 56000000
+    Proc. Court 1 - 64000000
+    Proc. Court 1 - 72000000
+    ############ FIN COURT 1
+
+    RANDOM Election !
+    Proc. Long 1 - 0
+    Proc. Long 1 - 8000000
+    Proc. Long 1 - 16000000
+    Proc. Long 1 - 24000000
+    Proc. Long 1 - 32000000
+    Proc. Long 1 - 40000000
+    Proc. Long 1 - 48000000
+    Proc. Long 1 - 56000000
+    Proc. Long 1 - 64000000
+    Proc. Long 1 - 72000000
+    Proc. Long 1 - 80000000
+    Proc. Long 1 - 88000000
+    Proc. Long 1 - 96000000
+    Proc. Long 1 - 104000000
+    Proc. Long 1 - 112000000
+    Proc. Long 1 - 120000000
+    Proc. Long 1 - 128000000
+    Proc. Long 1 - 136000000
+    Proc. Long 1 - 144000000
+    Proc. Long 1 - 152000000
+    Proc. Long 1 - 160000000
+    Proc. Long 1 - 168000000
+    Proc. Long 1 - 176000000
+    Proc. Long 1 - 184000000
+    Proc. Long 1 - 192000000
+    Proc. Long 1 - 200000000
+    Proc. Long 1 - 208000000
+    Proc. Long 1 - 216000000
+    Proc. Long 1 - 224000000
+    Proc. Long 1 - 232000000
+    Proc. Long 1 - 240000000
+    Proc. Long 1 - 248000000
+    Proc. Long 1 - 256000000
+    Proc. Long 1 - 264000000
+    Proc. Long 1 - 272000000
+    Proc. Long 1 - 280000000
+    Proc. Long 1 - 288000000
+    Proc. Long 1 - 296000000
+    Proc. Long 1 - 304000000
+    Proc. Long 1 - 312000000
+    Proc. Long 1 - 320000000
+    Proc. Long 1 - 328000000
+    Proc. Long 1 - 336000000
+    Proc. Long 1 - 344000000
+    Proc. Long 1 - 352000000
+    Proc. Long 1 - 360000000
+    Proc. Long 1 - 368000000
+    Proc. Long 1 - 376000000
+    Proc. Long 1 - 384000000
+    Proc. Long 1 - 392000000
+    Proc. Long 1 - 400000000
+    Proc. Long 1 - 408000000
+    Proc. Long 1 - 416000000
+    Proc. Long 1 - 424000000
+    Proc. Long 1 - 432000000
+    Proc. Long 1 - 440000000
+    Proc. Long 1 - 448000000
+    Proc. Long 1 - 456000000
+    Proc. Long 1 - 464000000
+    Proc. Long 1 - 472000000
+    Proc. Long 1 - 480000000
+    Proc. Long 1 - 488000000
+    Proc. Long 1 - 496000000
+    Proc. Long 1 - 504000000
+    Proc. Long 1 - 512000000
+    RANDOM Election !
+    Proc. Long 1 - 520000000
+    Proc. Long 1 - 528000000
+    Proc. Long 1 - 536000000
+    Proc. Long 1 - 544000000
+    Proc. Long 1 - 552000000
+    Proc. Long 1 - 560000000
+    Proc. Long 1 - 568000000
+    Proc. Long 1 - 576000000
+    Proc. Long 1 - 584000000
+    Proc. Long 1 - 592000000
+    Proc. Long 1 - 600000000
+    Proc. Long 1 - 608000000
+    Proc. Long 1 - 616000000
+    Proc. Long 1 - 624000000
+    Proc. Long 1 - 632000000
+    Proc. Long 1 - 640000000
+    Proc. Long 1 - 648000000
+    Proc. Long 1 - 656000000
+    Proc. Long 1 - 664000000
+    Proc. Long 1 - 672000000
+    Proc. Long 1 - 680000000
+    Proc. Long 1 - 688000000
+    Proc. Long 1 - 696000000
+    Proc. Long 1 - 704000000
+    Proc. Long 1 - 712000000
+    Proc. Long 1 - 720000000
+    Proc. Long 1 - 728000000
+    Proc. Long 1 - 736000000
+    Proc. Long 1 - 744000000
+    Proc. Long 1 - 752000000
+    Proc. Long 1 - 760000000
+    Proc. Long 1 - 768000000
+    Proc. Long 1 - 776000000
+    Proc. Long 1 - 784000000
+    Proc. Long 1 - 792000000
+    ############ FIN LONG 1
+
+    RANDOM Election !
+    Proc. Court 4 - 0
+    Proc. Court 4 - 8000000
+    Proc. Court 4 - 16000000
+    Proc. Court 4 - 24000000
+    Proc. Court 4 - 32000000
+    Proc. Court 4 - 40000000
+    Proc. Court 4 - 48000000
+    Proc. Court 4 - 56000000
+    Proc. Court 4 - 64000000
+    Proc. Court 4 - 72000000
+    ############ FIN COURT 4
+
+    RANDOM Election !
+    Proc. Long 0 - 464000000
+    Proc. Long 0 - 472000000
+    Proc. Long 0 - 480000000
+    Proc. Long 0 - 488000000
+    Proc. Long 0 - 496000000
+    Proc. Long 0 - 504000000
+    Proc. Long 0 - 512000000
+    Proc. Long 0 - 520000000
+    Proc. Long 0 - 528000000
+    Proc. Long 0 - 536000000
+    Proc. Long 0 - 544000000
+    Proc. Long 0 - 552000000
+    Proc. Long 0 - 560000000
+    Proc. Long 0 - 568000000
+    Proc. Long 0 - 576000000
+    Proc. Long 0 - 584000000
+    Proc. Long 0 - 592000000
+    Proc. Long 0 - 600000000
+    Proc. Long 0 - 608000000
+    Proc. Long 0 - 616000000
+    Proc. Long 0 - 624000000
+    Proc. Long 0 - 632000000
+    Proc. Long 0 - 640000000
+    Proc. Long 0 - 648000000
+    Proc. Long 0 - 656000000
+    Proc. Long 0 - 664000000
+    Proc. Long 0 - 672000000
+    Proc. Long 0 - 680000000
+    Proc. Long 0 - 688000000
+    Proc. Long 0 - 696000000
+    Proc. Long 0 - 704000000
+    Proc. Long 0 - 712000000
+    Proc. Long 0 - 720000000
+    Proc. Long 0 - 728000000
+    Proc. Long 0 - 736000000
+    Proc. Long 0 - 744000000
+    Proc. Long 0 - 752000000
+    Proc. Long 0 - 760000000
+    Proc. Long 0 - 768000000
+    Proc. Long 0 - 776000000
+    Proc. Long 0 - 784000000
+    Proc. Long 0 - 792000000
+    ############ FIN LONG 0
+
+    RANDOM Election !
+    Proc. Court 7 - 0
+    Proc. Court 7 - 8000000
+    Proc. Court 7 - 16000000
+    Proc. Court 7 - 24000000
+    Proc. Court 7 - 32000000
+    Proc. Court 7 - 40000000
+    Proc. Court 7 - 48000000
+    Proc. Court 7 - 56000000
+    Proc. Court 7 - 64000000
+    Proc. Court 7 - 72000000
+    ############ FIN COURT 7
+
+    RANDOM Election !
+    Proc. Court 3 - 0
+    Proc. Court 3 - 8000000
+    Proc. Court 3 - 16000000
+    Proc. Court 3 - 24000000
+    Proc. Court 3 - 32000000
+    Proc. Court 3 - 40000000
+    Proc. Court 3 - 48000000
+    Proc. Court 3 - 56000000
+    Proc. Court 3 - 64000000
+    Proc. Court 3 - 72000000
+    ############ FIN COURT 3
+
+    RANDOM Election !
+    Proc. Court 5 - 0
+    Proc. Court 5 - 8000000
+    Proc. Court 5 - 16000000
+    Proc. Court 5 - 24000000
+    Proc. Court 5 - 32000000
+    Proc. Court 5 - 40000000
+    Proc. Court 5 - 48000000
+    Proc. Court 5 - 56000000
+    Proc. Court 5 - 64000000
+    Proc. Court 5 - 72000000
+    ############ FIN COURT 5
+
+    RANDOM Election !
+    Proc. Court 6 - 0
+    Proc. Court 6 - 8000000
+    Proc. Court 6 - 16000000
+    Proc. Court 6 - 24000000
+    Proc. Court 6 - 32000000
+    Proc. Court 6 - 40000000
+    Proc. Court 6 - 48000000
+    Proc. Court 6 - 56000000
+    Proc. Court 6 - 64000000
+    Proc. Court 6 - 72000000
+    ############ FIN COURT 6
+
+    PID	FUNCTION	REAL-TIME	CPU-TIME	WAITING-TIME
+    --------------------------------------------------------------------
+    0	Function0	3.615s		1.651s		1.964s
+    1	Function1	2.858s		1.539s		1.319s
+    2	Function2	1.212s		0.106s		1.106s
+    3	Function3	0.822s		0.106s		0.716s
+    4	Function4	0.225s		0.106s		0.119s
+    5	Function5	2.509s		0.106s		2.402s
+    6	Function6	1.261s		0.106s		1.154s
+    7	Function7	1.845s		0.106s		1.739s
+    8	Function8	1.567s		0.106s		1.460s
+    9	Function9	0.491s		0.106s		0.385s
+    --------------------------------------------------------------------
+    Average:		1.641s		0.404s		1.237s
+    --------------------------------------------------------------------
+
+On observe que le temps d'attente moyen est légèrement meilleur pour l'algorithme aléatoire mais que sont majoritairement les tâches courtes qui sont élues pour l'algorithme d'approximation SJF (sauf le cas où les tâches longues n'ont pas encore eu le CPU).
+
+### Question 3.3
+
+L'algorithme peut provoquer de la famine dans le cas où les tâches courtes sont créées en continue et que les tâches longues ne peuvent donc jamais être élues.
+
+Pour résoudre le problème, on pourrait remettre le 
