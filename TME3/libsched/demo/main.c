@@ -25,14 +25,14 @@ void ProcCourt(int *pid) {
 
 
 // Exemples de primitive d'election definie par l'utilisateur
-// Remarques : les primitives d'election sont appelées directement
-//             depuis la librairie. Elles ne sont appélée que si au
-//             moins un processus est à l'etat pret (RUN)
+// Remarques : les primitives d'election sont appelï¿½es directement
+//             depuis la librairie. Elles ne sont appï¿½lï¿½e que si au
+//             moins un processus est ï¿½ l'etat pret (RUN)
 //             Ces primitives manipulent la table globale des processus
-//             définie dans sched.h
+//             dï¿½finie dans sched.h
 
 
-// Election aléatoire
+// Election alï¿½atoire
 int RandomElect(void) {
   int i;
 
@@ -51,14 +51,14 @@ int main (int argc, char *argv[]) {
   int i;
   int *j;  
 
-  // Créer les processus long
+  // Crï¿½er les processus long
   for  (i = 0; i < 2; i++) {
     j = (int *) malloc(sizeof(int));
     *j= i;
     CreateProc((function_t)ProcLong,(void *)j, 80);
   }
 
-  // Créer les processus court
+  // Crï¿½er les processus court
   for  (i = 0; i < 2; i++) {
     j = (int *) malloc(sizeof(int));
     *j= i;
@@ -67,7 +67,10 @@ int main (int argc, char *argv[]) {
 
 
   // Definir une nouvelle primitive d'election avec un quantum de 0.3 seconde
-  SchedParam(NEW, 0.3, RandomElect);
+  //SchedParam(NEW, 0.3, RandomElect);
+
+  // Definir une nouvelle primitive d'election avec un quantum de 0.03 seconde
+  SchedParam(NEW, 0.03, RandomElect);
 
   // Definir une nouvelle primitive d'election sans quantum (batch)
   //SchedParam(NEW, 0, SJFElect);
