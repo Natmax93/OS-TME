@@ -154,7 +154,8 @@ int main (int argc, char *argv[]) {
   // Definir une nouvelle primitive d'election avec un quantum de 1 seconde
   //SchedParam(NEW, 1, RandomElect);
   //SchedParam(NEW, 0.5, SJFElect);
-  SchedParam(NEW, QX, ApproxSJF);
+  //SchedParam(NEW, 1, ApproxSJF);
+  SchedParam(NEW, QX, ApproxSJF_v2);
 
   // Lancer l'ordonnanceur en mode non "verbeux"
   sched(0);     

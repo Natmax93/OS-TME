@@ -1261,4 +1261,4 @@ On observe que le temps d'attente moyen est légèrement meilleur pour l'algorit
 
 L'algorithme peut provoquer de la famine dans le cas où les tâches courtes sont créées en continue et que les tâches longues ne peuvent donc jamais être élues.
 
-Pour résoudre le problème, on pourrait remettre le 
+Pour résoudre le problème, on pourrait remettre le temps d'utilisation CPU des tâches qui ont duré plus longtemps qu'un quantum (ou plus) à zéro pour les remettre au même niveau que les nouvelles tâches et éviter la famine.
