@@ -9,7 +9,7 @@ void ProcLong(int *);
 void ProcCourt(int *);
 
 // Exemple de processus long (une simple bouble),
-// Chaque processus long crée a son tour 4 processus courts
+// Chaque processus long crï¿½e a son tour 4 processus courts
 //
 void ProcLong(int *pid) {
   long i;
@@ -43,14 +43,14 @@ void ProcCourt(int *pid) {
 
 
 // Exemples de primitive d'election definie par l'utilisateur
-// Remarques : les primitives d'election sont appelées directement
-//             depuis la librairie. Elles ne sont appélées que si au
-//             moins un processus est à l'etat pret (RUN)
+// Remarques : les primitives d'election sont appelï¿½es directement
+//             depuis la librairie. Elles ne sont appï¿½lï¿½es que si au
+//             moins un processus est ï¿½ l'etat pret (RUN)
 //             Ces primitives manipulent la table globale des processus
-//             définie dans sched.h
+//             dï¿½finie dans sched.h
 
 
-// Election aléatoire
+// Election alï¿½atoire
 int RandomElect(void) {
   int i;
 
@@ -66,19 +66,47 @@ int RandomElect(void) {
 
 // Election de SJF "Shortest Job Fisrt"
 int SJFElect(void) {
-  int p;
+  int p = -1;
+  double duration_min;
 
-  /* Choisir le processus p  - A ecrire en TP */
+  printf("SJF Election !\n");
 
-  return p;	
+  // On choisit le processus p dont la durÃ©e est la plus courte
+  // cad celui dont la date de fin est la plus petite
+  p = -1;
+  duration_min = LONGTIME; // initialisation Ã  la durÃ©e la plus longue
+  for (int i = 0; i<MAXPROC; i++) {
+    if (Tproc[i].flag == RUN && Tproc[i].duration < duration_min) {
+      p = i;
+      duration_min = Tproc[i].duration;
+    }
+  }
+
+  return p;
 }
 
-// Approximation SJF
+// Approximation SJF privilÃ©giant les tÃ¢ches courtes
 int ApproxSJF(void) {
+
   int p;
+  double temps_cons_min, nvTps;
 
-  /* Choisir le processus p - A ecrire en TP */
+  printf("ApproxSJF Election !\n");
 
+  // On va chercher le processus qui a consommÃ© le moins de temps
+  // CPU jusqu'Ã  maintenant
+
+  p = -1;
+  temps_cons_min = LONGTIME; // initialisation Ã  la durÃ©e la plus longue
+  for (int i = 0; i<MAXPROC; i++) {
+    nvTps = (double)((int)(Tproc[i].ncpu*1000000) % 50000) / 1000000;
+    if (Tproc[i].flag == RUN && nvTps < temps_cons_min) {
+      p = i;
+      temps_cons_min = nvTps;
+    }
+  }
+  printf("temps_cons_min = %lf\n", temps_cons_min);
+  printf("nvTps = %lf\n", nvTps);
   return p;
 }
 
@@ -88,7 +116,7 @@ int main (int argc, char *argv[]) {
   int i;
   int *j;  
 
-  // Créer les processus long
+  // Crï¿½er les processus long
   for  (i = 0; i < 2; i++) {
     j = (int *) malloc(sizeof(int));
     *j= i;
@@ -98,7 +126,9 @@ int main (int argc, char *argv[]) {
 
 
   // Definir une nouvelle primitive d'election avec un quantum de 0.5 seconde
-  SchedParam(NEW, 0.5, RandomElect);
+  //SchedParam(NEW, 0.5, RandomElect);
+  //SchedParam(NEW, 0.5, SJFElect);
+  SchedParam(NEW, 1, ApproxSJF);
 
   // Lancer l'ordonnanceur en mode non "verbeux"
   sched(0);     
