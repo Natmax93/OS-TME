@@ -13,6 +13,7 @@ int main(int argc, char **argv) {
 
     int p, fils_en_exec = 0;
     char *chaine;
+    pid_t fils;
 
     if (argc > 2) {
 
@@ -23,9 +24,11 @@ int main(int argc, char **argv) {
 
             if (fils_en_exec == MAXFILS) {
                 printf("On attend un fils...\n");
-                wait(NULL);
+                fils = wait(NULL);
                 fils_en_exec--;
                 printf("Un fils a fini !\n");
+                printf("Statistiques de '%d':\n", fils);
+                
             }
 
             if ((p = fork()) == 0) {
