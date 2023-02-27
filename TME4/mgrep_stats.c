@@ -3,6 +3,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/resource.h>
+#include <sys/wait.h>
 
 #define MAXFILS 2
 
@@ -11,9 +13,10 @@
 
 int main(int argc, char **argv) {
 
-    int p, fils_en_exec = 0;
+    int p, status, fils_en_exec = 0;
     char *chaine;
     pid_t fils;
+    struct rusage rusage;
 
     if (argc > 2) {
 
@@ -24,11 +27,18 @@ int main(int argc, char **argv) {
 
             if (fils_en_exec == MAXFILS) {
                 printf("On attend un fils...\n");
-                fils = wait(NULL);
+                fils = wait3(&status, 0, &rusage);
                 fils_en_exec--;
                 printf("Un fils a fini !\n");
-                printf("Statistiques de '%d':\n", fils);
-                
+
+                if (WIFEXITED(status)) {
+                    printf("(dans le if) Statistiques de '%d':\n", fils);
+                    printf("\tTemps utilisateur consommé : %f\n", (rusage.ru_utime.tv_sec + rusage.ru_utime.tv_usec * 1E-6));
+                    printf("\tTemps système consommé : %f\n", (rusage.ru_stime.tv_sec + rusage.ru_stime.tv_usec * 1E-6));
+                }
+                else {
+                    fprintf(stderr, "Le fils %d s'est mal terminé\n", fils);
+                }                
             }
 
             if ((p = fork()) == 0) {
@@ -47,5 +57,14 @@ int main(int argc, char **argv) {
     }
 
     // On attend tous les fils
-    while (wait(NULL) != -1);
+    while ((fils = wait3(&status, 0, &rusage)) != -1) {
+        if (WIFEXITED(status)) {
+            printf("Statistiques de '%d':\n", fils);
+            printf("\tTemps utilisateur consommé : %f\n", (rusage.ru_utime.tv_sec + rusage.ru_utime.tv_usec * 1E-6));
+            printf("\tTemps système consommé : %f\n", (rusage.ru_stime.tv_sec + rusage.ru_stime.tv_usec * 1E-6));
+        }
+        else {
+            fprintf(stderr, "Le fils %d s'est mal terminé\n", fils);
+        }
+    }
 }
