@@ -70,8 +70,13 @@
 
       // On prévient les récepteurs qu'il y a une case libre
       for (int i=0; i<NR; i++) {
-        V(RECEP[i]); 
+        //fprintf(stderr, "Réveil rec %d, RECEP[%d] = %d\n", i, i, RECEP[i]);
+        V(RECEP[i]);
+        //fprintf(stderr, "Après réveil rec %d, RECEP[%d] = %d\n", i, i, RECEP[i]);
       }
+
+      // Libération de la ressource
+      V(EMET);
     }
 
   }
@@ -87,8 +92,12 @@
 
     while (1) {
 
+      printf("Je suis le récepteur %d et RECEP[%d] = %d\n", id_recep, id_recep, RECEP[id_recep]);
+
       // Le récepteur peut lire la ressource
       P(RECEP[id_recep]);
+
+      printf("Lecture ressource pour %d\n", id_recep);
 
       P(MUTEX_NB);
       nb_recepteurs++;
