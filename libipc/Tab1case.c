@@ -31,7 +31,7 @@
     int a;
   } tampon;
 
-  int nb_recepteurs;
+  int *nb_recepteurs;
 
   tampon *tp;
 
@@ -66,7 +66,12 @@
       // Il y a une case dans laquelle il peut écrire
       P(EMET);                   
       tp->a = a;
-      printf("Je suis l'émetteur numéro %d et j'écris dans la variable a\n", a);
+      printf("Je suis l'émetteur numéro %d et j'écris %d dans la variable a\n", a, a);
+
+      // On initialise le nombre de recepteurs qui ont lu la ressource à 0
+      P(MUTEX_NB);
+      *nb_recepteurs = 0;
+      V(MUTEX_NB);
 
       // On prévient les récepteurs qu'il y a une case libre
       for (int i=0; i<NR; i++) {
@@ -74,9 +79,6 @@
         V(RECEP[i]);
         //fprintf(stderr, "Après réveil rec %d, RECEP[%d] = %d\n", i, i, RECEP[i]);
       }
-
-      // Libération de la ressource
-      V(EMET);
     }
 
   }
@@ -92,37 +94,31 @@
 
     while (1) {
 
-      printf("Je suis le récepteur %d et RECEP[%d] = %d\n", id_recep, id_recep, RECEP[id_recep]);
+      //printf("Je suis le récepteur %d et RECEP[%d] = %d\n", id_recep, id_recep, RECEP[id_recep]);
 
       // Le récepteur peut lire la ressource
       P(RECEP[id_recep]);
 
-      printf("Lecture ressource pour %d\n", id_recep);
+      //printf("Lecture ressource pour %d\n", id_recep);
 
-      P(MUTEX_NB);
-      nb_recepteurs++;
-
-      // C'est le premire récepteur on bloque les écrivains
-      if (nb_recepteurs == 1) {
-        P(EMET);
-      }
-
-      // On prévient les autres lecteurs qu'ils peuvent lire
-      V(MUTEX_NB);
-
-
-      printf("Je suis le récepteur numéro %d et je lis dans la variable a = %d\n", id_recep, tp->a);
+      printf("Je suis le récepteur numéro %d (RECEP[%d] = %d) et je lis dans la variable a = %d\n", id_recep, id_recep, RECEP[id_recep], tp->a);
       
       // Fin de la lecture de la ressource
       P(MUTEX_NB);
-      nb_recepteurs--;
+
+      (*nb_recepteurs)++;
+      printf("Modif nb_recepteurs = %d\n", *nb_recepteurs);
 
       // C'est le dernier récepteur à lire la ressource
-      if (nb_recepteurs == 0) {
+      if (*nb_recepteurs == NR) {
+
+        printf("%d est le dernier récepteur et libère le sémaphore pour les écrivains\n", id_recep);
         
         // On prévient les écrivains qu'ils peuvent écrire
         V(EMET);
       }
+
+      // On prévient les autres récepteurs qu'ils peuvent lire
       V(MUTEX_NB);
     }
   }
@@ -130,18 +126,25 @@
 /************************************************************/
 
 int main() { 
-    struct sigaction action;
-    /* autres variables (a completer) */
+  struct sigaction action;
+  /* autres variables (a completer) */
 
-    int semid, pid;
-    nb_recepteurs = 0;
+  int semid, pid;
 
-    setbuf(stdout, NULL);
+  setbuf(stdout, NULL);
 
 /* Creation du segment de memoire partagee */
 
-	tp = malloc(sizeof(tampon));
-  assert(tp);
+  /* Creer le segment de memoire partager */
+	if ((tp = (tampon *)init_shm(sizeof(tampon))) == NULL) {
+		perror("init_shm (tampon)");
+		exit(1);
+	}
+
+  if ((nb_recepteurs = (int *)init_shm(sizeof(int))) == NULL) {
+		perror("init_shm (nb_recepteurs)");
+		exit(1);
+	}
 
 /* creation des semaphores */ 
 
@@ -174,8 +177,11 @@ int main() {
 
   for (int i=0; i<NE; i++) {
     if ((pid = fork() == 0)) {
-      emet_pid[i] = pid;
       EMETTEUR(i, i);
+      break;
+    }
+    else {
+      emet_pid[i] = pid;
     }
   }
 
@@ -186,8 +192,11 @@ int main() {
 
   for (int i=0; i<NR; i++) {
     if ((pid = fork() == 0)) {
-      recep_pid[i] = pid;
       RECEPTEUR(i);
+      break;
+    }
+    else {
+      recep_pid[i] = pid;
     }
   }
 
